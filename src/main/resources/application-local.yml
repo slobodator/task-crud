@@ -1,0 +1,10 @@
+server:
+  error:
+    include-message: always
+spring:
+  datasource:
+    url: jdbc:h2:mem:task_db
+    username: sa
+    password: sa
+
+

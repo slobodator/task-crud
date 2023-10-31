@@ -1,0 +1,59 @@
+### Create a new root task
+
+POST {{url}}/tasks
+Content-Type: application/json
+
+{
+  "description": "Root"
+}
+
+### Create a subtask
+
+POST {{url}}/tasks
+Content-Type: application/json
+
+{
+  "description": "Subtask 1",
+  "parentTaskId": 1
+}
+
+### Create one more subtask
+
+POST {{url}}/tasks
+Content-Type: application/json
+
+{
+  "description": "Subtask 1-1",
+  "parentTaskId": 2
+}
+
+### Get the task
+
+GET {{url}}/tasks/1
+
+### Get the task with the 1st level subtasks
+
+GET {{url}}/tasks/1?hierarchy=FIRST_LEVEL
+
+### Get the task with entire hierarchy
+
+GET {{url}}/tasks/1?hierarchy=ENTIRE_GRAPH
+
+### Update (patch) the root task -- not possible
+
+PATCH {{url}}/tasks/1
+Content-Type: application/json
+
+{
+  "status": "DONE"
+}
+
+### Update (patch) the root task -- possible because of the 'force' flag
+
+PATCH {{url}}/tasks/1
+Content-Type: application/json
+
+{
+  "status": "DONE",
+  "force": "true"
+}
