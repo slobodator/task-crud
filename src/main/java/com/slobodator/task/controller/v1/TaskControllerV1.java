@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/tasks")
+@RequestMapping("/v1/tasks")
 @RequiredArgsConstructor
 public class TaskControllerV1 {
     private final TaskService taskService;

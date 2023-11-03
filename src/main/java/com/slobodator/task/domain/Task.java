@@ -31,7 +31,7 @@ public class Task {
     @ToString.Include
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @Nullable
     private Task parent;
 

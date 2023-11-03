@@ -11,9 +11,9 @@ The very basic implementation of the Task CRUD system
 - still, with a 'force' flag the given task could be marked as done assuming the entire hierarchy of its subtasks is
   also marked as done
 - the given task could be fetched
-  - with its no subtasks `GET /tasks/{taskId}`
-  - with the first level of its subtasks `GET /tasks/{taskId}?hierarchy=FIRST_LEVEL`
-  - with the entire graph of its subtasks `GET /tasks/{taskId}?hierarchy=ENTIRE_GRAPH`
+  - with its no subtasks `GET /v1/tasks/{taskId}`
+  - with the first level of its subtasks `GET /v1/tasks/{taskId}?hierarchy=FIRST_LEVEL`
+  - with the entire graph of its subtasks `GET /v1/tasks/{taskId}?hierarchy=ENTIRE_GRAPH`
 
 ## Technical decisions made
 
