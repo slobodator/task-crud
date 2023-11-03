@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import static java.util.function.Predicate.not;
 
@@ -39,64 +38,37 @@ public class Task {
     private List<Task> subtasks = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
-    private TaskPriority priority;
-
-    @Enumerated(EnumType.STRING)
     private TaskStatus status;
 
     @Embedded
     private TaskDescription description;
 
-    @Embedded
-    @Nullable
-    private TaskDeadline deadline;
-
     private Task(
-            @Nullable Task parent,
-            TaskPriority priority,
-            TaskStatus status,
             TaskDescription description,
-            @Nullable TaskDeadline deadline
+            TaskStatus status,
+            @Nullable Task parent
     ) {
         this.parent = parent;
-        this.priority = Objects.requireNonNull(priority);
         this.status = Objects.requireNonNull(status);
         this.description = Objects.requireNonNull(description);
-        this.deadline = deadline;
-    }
-
-    public Task(
-            @Nullable Task parentTask,
-            @Nullable TaskPriority priority,
-            TaskDescription description,
-            @Nullable TaskDeadline deadline
-    ) {
-        this(
-                parentTask,
-                Optional.ofNullable(priority).orElse(TaskPriority.MEDIUM),
-                TaskStatus.NEW,
-                description,
-                deadline
-        );
     }
 
     public Task(TaskDescription description) {
         this(
-                null,
-                null,
                 description,
                 null
         );
     }
 
-    public Task(TaskDescription description, Task parent) {
+    public Task(TaskDescription description, @Nullable Task parent) {
         this(
-                parent,
-                null,
                 description,
-                null
+                TaskStatus.NEW,
+                parent
         );
-        parent.addSubTask(this);
+        if (parent != null) {
+            parent.addSubTask(this);
+        }
     }
 
     public void addSubTask(Task task) {
@@ -154,14 +126,6 @@ public class Task {
     public void patch(TaskPatch patch) {
         if (patch.description() != null) {
             this.description = patch.description();
-        }
-
-        if (patch.deadline() != null) {
-            this.deadline = patch.deadline();
-        }
-
-        if (patch.priority() != null) {
-            this.priority = patch.priority();
         }
 
         if (patch.status() != null) {

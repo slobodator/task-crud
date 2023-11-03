@@ -9,6 +9,7 @@ import lombok.experimental.Delegate;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Getter
+@ToString
 public class TaskDescription implements CharSequence {
     @Delegate
     private String description;

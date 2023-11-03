@@ -55,5 +55,5 @@ Content-Type: application/json
 
 {
   "status": "DONE",
-  "force": "true"
+  "force": true
 }

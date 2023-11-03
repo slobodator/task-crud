@@ -21,11 +21,6 @@ databaseChangeLog:
                     referencedColumnNames: id
                     foreignKeyName: fk_parent_task
               - column:
-                  name: priority
-                  type: varchar(16)
-                  constraints:
-                    nullable: false
-              - column:
                   name: status
                   type: varchar(16)
                   constraints:
@@ -35,9 +30,6 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: false
-              - column:
-                  name: deadline
-                  type: datetime
         - createSequence:
             sequenceName: tasks_seq
             incrementBy: 50

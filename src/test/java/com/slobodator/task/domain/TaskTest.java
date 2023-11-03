@@ -10,10 +10,10 @@ class TaskTest {
     @Test
     void tryMarkDone() {
         Task parentTask = new Task(
-                new TaskDescription("root")
+                new TaskDescription("rootTask")
         );
         Task subTask = new Task(
-                new TaskDescription("root"),
+                new TaskDescription("subTask"),
                 parentTask
         );
         assertThatThrownBy(
@@ -24,10 +24,10 @@ class TaskTest {
     @Test
     void markDoneForce() {
         Task parentTask = new Task(
-                new TaskDescription("root")
+                new TaskDescription("rootTask")
         );
         Task subTask = new Task(
-                new TaskDescription("root"),
+                new TaskDescription("subTask"),
                 parentTask
         );
 

@@ -17,7 +17,6 @@ import static com.slobodator.task.controller.v1.request.TaskHierarchyV1.ENTIRE_G
 public interface TaskMapper {
     @Mapping(target = "parentTaskId", source = "parent.id")
     @Mapping(target = "description", source = "description.description")
-    @Mapping(target = "deadline", source = "deadline.deadline")
     @Mapping(target = "subTasks", expression = "java(subTasks(task, hierarchy))")
     TaskDtoV1 toDtoV1(Task task, @Context TaskHierarchyV1 hierarchy);
 
@@ -25,6 +24,7 @@ public interface TaskMapper {
         return toDtoV1(task, TaskHierarchyV1.NONE);
     }
 
+    @SuppressWarnings("unused")
     @AfterMapping
     default List<TaskDtoV1> subTasks(Task task, TaskHierarchyV1 hierarchy) {
         return switch (hierarchy) {

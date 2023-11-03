@@ -7,12 +7,6 @@ public record TaskPatch(
         TaskDescription description,
 
         @Nullable
-        TaskDeadline deadline,
-
-        @Nullable
-        TaskPriority priority,
-
-        @Nullable
         TaskStatus status,
 
         boolean force

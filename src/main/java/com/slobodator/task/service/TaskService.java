@@ -4,10 +4,11 @@ import com.slobodator.task.controller.v1.request.NewTaskRequestV1;
 import com.slobodator.task.controller.v1.request.TaskHierarchyV1;
 import com.slobodator.task.controller.v1.request.TaskPatchRequestV1;
 import com.slobodator.task.controller.v1.response.TaskDtoV1;
-import com.slobodator.task.domain.*;
+import com.slobodator.task.domain.Task;
+import com.slobodator.task.domain.TaskDescription;
+import com.slobodator.task.domain.TaskPatch;
 import com.slobodator.task.mapper.TaskMapper;
 import com.slobodator.task.mapper.TaskPatchMapper;
-import com.slobodator.task.mapper.TaskPriorityMapper;
 import com.slobodator.task.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,12 +24,9 @@ import java.util.Optional;
 public class TaskService {
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
-    private final TaskPriorityMapper taskPriorityMapper;
     private final TaskPatchMapper taskPatchMapper;
 
     public TaskDtoV1 create(NewTaskRequestV1 newTaskRequest) {
-        TaskPriority taskPriority = taskPriorityMapper
-                .toPriority(newTaskRequest.priority());
         Task parentTask = Optional
                 .ofNullable(newTaskRequest.parentTaskId())
                 .map(
@@ -47,10 +45,7 @@ public class TaskService {
                         taskRepository
                                 .save(
                                         new Task(
-                                                parentTask,
-                                                taskPriority,
-                                                new TaskDescription(newTaskRequest.description()),
-                                                new TaskDeadline(newTaskRequest.deadline())
+                                                new TaskDescription(newTaskRequest.description()), parentTask
                                         )
                                 )
                 );
