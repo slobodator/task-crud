@@ -15,6 +15,8 @@ The very basic implementation of the Task CRUD system
   - with the first level of its subtasks `GET /v1/tasks/{taskId}?hierarchy=FIRST_LEVEL`
   - with the entire graph of its subtasks `GET /v1/tasks/{taskId}?hierarchy=ENTIRE_GRAPH`
 
+**NB! The features are specially chosen to highlight the problem of mixing the business logic and data access**
+
 ## Technical decisions made
 
 For simplification

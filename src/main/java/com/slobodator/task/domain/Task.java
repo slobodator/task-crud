@@ -96,7 +96,7 @@ public class Task {
         updateStatus(status, false);
     }
 
-    private void markDone(boolean force) {
+    void markDone(boolean force) {
         if (!force) {
             this.subtasks
                     .stream()
@@ -111,15 +111,16 @@ public class Task {
                             }
                     );
         }
-        this.subtasks
-                .forEach(
-                        t -> t.markDone(force)
-                );
-
+        if (this.status != TaskStatus.DONE) {
+            this.subtasks
+                    .forEach(
+                            t -> t.markDone(force)
+                    );
+        }
         this.status = TaskStatus.DONE;
     }
 
-    private boolean isDone() {
+    boolean isDone() {
         return this.status == TaskStatus.DONE;
     }
 
